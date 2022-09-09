@@ -1,0 +1,24 @@
+{
+  "name": "boilerplate-ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/EuCarlos/boilerplate-ts.git",
+  "author": "Carlos Alves <carlosalves369m@pm.me>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
+    "ts:build": "yarn tsc",
+    "package:view": "yarn upgrade-interactive --latest",
+    "package:upgrade": "yarn upgrade"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.1.0",
+    "typescript": "^4.8.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1"
+  }
+}
