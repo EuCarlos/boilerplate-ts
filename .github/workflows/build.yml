@@ -1,28 +1,29 @@
 name: Build and Test
-
-on:
-    [push, pull_request]
-
+on: [push, pull_request]
 jobs:
   build:
+    name: Build, and test on Node ${{ matrix.node }} and ${{ matrix.os }}
 
-    runs-on: ubuntu-latest
-    name: build
-
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x, 18.x]
+        node: [12.x, 14.x, 16.x, 18.x]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install -g yarn
-    - name: yarn install, build and test
-    - run: |
-        yarn
-        yarn build
-        yarn test
+      - name: Checkout repo
+        uses: actions/checkout@v2
 
+      - name: Use Node ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install deps and build (with cache)
+        uses: bahmutov/npm-install@v1
+
+      - name: Build
+        run: yarn build
+
+      - name: Test
+        run: yarn test
