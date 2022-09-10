@@ -1,0 +1,29 @@
+name: Build and Test
+
+on:
+    [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    name: build
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x, 18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install -g yarn
+    - name: yarn install, build and test
+    - run: npm ci
+    - run: |
+        yarn
+        yarn build
+        yarn test
+
