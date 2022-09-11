@@ -1,13 +1,23 @@
-type JsonResponseProps = {
-    message: string 
-    is_success: Boolean
-    data?: Object
-}
+export class JsonResponse {
+    message: string;
+    is_success: boolean;
+    data: object;
 
-export const json_response = (props: JsonResponseProps): Object => {
-    return {
-        message: props.message,
-        is_sucess: props.is_success,
-        data: props.data || {}
+    constructor (
+        message: string,
+        is_success: boolean,
+        data: object = {}
+    ) {
+        this.message = message;
+        this.is_success = is_success;
+        this.data = data
+    }
+
+    response () {
+        return {
+            message: this.message,
+            is_success: this.is_success,
+            data: this.data
+        }
     }
 }
