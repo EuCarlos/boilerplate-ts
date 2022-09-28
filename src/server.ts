@@ -1,5 +1,6 @@
 // imports
 import express from 'express'
+import { print } from './routes/functions/printPaths'
 require("dotenv").config()
 
 // controllers
@@ -27,3 +28,6 @@ app
     .listen(PORT, () => {
         console.log(`🔥 Server is running in PORT ${PORT} - ${process.env.NODE_ENV}`)
     })
+
+console.log("🛣️  ROUTES")
+app._router.stack.forEach(print.bind(null, []))
