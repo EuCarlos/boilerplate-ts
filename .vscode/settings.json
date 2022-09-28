@@ -3,7 +3,7 @@
         "source.fixAll.eslint": true
     },
     "material-icon-theme.folders.associations": {
-        "v[0-9]{,2}": "Other",
+        "v[0-9]": "Other",
         "concerns": "Config"
     }
 }
