@@ -1,29 +1,29 @@
-import express from 'express';
-import '@controllers/UsersController'
+// imports
+import express from 'express'
 require("dotenv").config()
 
-// import { json_response } from './concerns/response';
+// controllers
+import '@controllers/UsersController'
+
+// routes
+const v1Router = require('./routes/v1')
+
 import { JsonResponse } from './concerns/response'
 
 const PORT = process.env.PORT || 3333
 
 const app = express();
 
-app.get('/', (req, res) => {
-    var result = new JsonResponse("Request Successfully", true, {
-        name: "Carlos Alves",
-        repo: "https://github.com/EuCarlos/boilerplate-ts",
-        website: "https://carlosalves.vercel.app/"
-    }).response()
+app
+    .use('/api/v1/workouts', v1Router)
 
-    return res.status(200).json(result)
-})
+    .use((req, res) => {
+        const pathname = req.originalUrl
+        const result = new JsonResponse(`Can't found this route: ${pathname}`, false).response()
 
-app.use((req, res) => {
-    var result = new JsonResponse("Can't found this route", false).response()
-    res.status(404).json(result);
-});
+        res.status(404).json(result);
+    })
 
-app.listen(PORT, () => {
-    console.log(`🔥 Server is running in PORT ${PORT} - ${process.env.NODE_ENV}`)
-})
+    .listen(PORT, () => {
+        console.log(`🔥 Server is running in PORT ${PORT} - ${process.env.NODE_ENV}`)
+    })
