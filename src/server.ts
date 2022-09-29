@@ -1,6 +1,8 @@
 // imports
 import express from 'express'
 import { print } from './routes/functions/printPaths'
+import swaggerUI from 'swagger-ui-express'
+import swaggerDocsV1 from './docs/v1/swagger.json'
 require("dotenv").config()
 
 // controllers
@@ -16,6 +18,7 @@ const PORT = process.env.PORT || 3333
 const app = express();
 
 app
+    .use("/api/v1/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocsV1 ))
     .use('/api/v1/workouts', v1Router)
 
     .use((req, res) => {
@@ -31,3 +34,5 @@ app
 
 console.log("🛣️  ROUTES")
 app._router.stack.forEach(print.bind(null, []))
+
+console.log("📚 Documentation is on the route: /api/v1/docs")
