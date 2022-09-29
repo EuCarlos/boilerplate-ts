@@ -1,5 +1,12 @@
 
 
+const regex = {
+    removeUnnecessaryCharacters: '\\/?',
+    getNecessaryCharacters: '(?=\\/|$)',
+    getValidValue: /^\/\^((?:\\[.*+?^${}()|[\]\\\/]|[^.*+?^${}()|[\]\\\/])*)\$\//,
+    captureGroup: /\\(.)/g,
+  }
+
 const split = value => {
     if (typeof value === 'string') return value.split('/')
 
@@ -7,11 +14,11 @@ const split = value => {
 
     else
         var match = value.toString()
-            .replace('\\/?', '')
-            .replace('(?=\\/|$)', '$')
-            .match(/^\/\^((?:\\[.*+?^${}()|[\]\\\/]|[^.*+?^${}()|[\]\\\/])*)\$\//)
+            .replace(regex.removeUnnecessaryCharacters, '')
+            .replace(regex.getNecessaryCharacters, '$')
+            .match(regex.getValidValue)
         return match
-            ? match[1].replace(/\\(.)/g, '$1').split('/')
+            ? match[1].replace(regex.captureGroup, '$1').split('/')
             : '<complex:' + value.toString() + '>'
 
 }
