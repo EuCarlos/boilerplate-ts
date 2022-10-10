@@ -11,7 +11,7 @@ import '@controllers/UsersController'
 // routes
 const v1Router = require('./routes/v1')
 
-import { JsonResponse } from './concerns/response'
+import JsonResponse from './concerns/response'
 
 const PORT = process.env.PORT || 3333
 
@@ -23,7 +23,7 @@ app
 
     .use((req, res) => {
         const pathname = req.originalUrl
-        const result = new JsonResponse(`Can't found this route: ${pathname}`, false).response()
+        const result = JsonResponse.response(`Can't found this route: ${pathname}`, false)
 
         res.status(404).json(result);
     })
