@@ -3,7 +3,7 @@ import JsonResponse from '../concerns/response'
 describe('should be ok', () => {
     it('should display message, is_success and data parameters', () => {
         const res = JsonResponse.response("Successfully", true, {
-            _uuid: "c9380761-cf02-4c88-bf42-876451f59a27",:recycle:
+            _uuid: "c9380761-cf02-4c88-bf42-876451f59a27",
             _title: "Lorem impsum",
             _date: "2022-09-11 12:33:12"
         })
